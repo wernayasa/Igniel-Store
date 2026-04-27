@@ -1,0 +1,30 @@
+<b:includable id='main' var='this'>    
+      <b:class cond='data:view.isSingleItem' name='md:px-5'/>
+      <b:include cond='data:view.isMultipleItems' name='dataMessages'/>
+      <b:if cond='data:view.isMultipleItems'><div class='flex items-center justify-between'><b:include name='postPagination'/><a class='feed-link px-2 leading-7 h-7 hover:bg-neutral-100 hover:text-neutral-700 dark:hover:bg-neutral-700 dark:hover:text-white border-x border-neutral-200 dark:border-neutral-700 rounded bg-green-500' expr:data-feed='data:view.url.canonical' id='subscribe-this-post' target='_blank' type='application/atom+xml'>Follow</a></div></b:if>
+      <b:tag class='border border-neutral-200 dark:border-neutral-700 rounded-md p-2.5' cond='data:view.isMultipleItems' name='div'>
+  <b:include name='noContentPlaceholder'/>
+  
+  <b:with value='data:widgets.FeaturedPost filter (w =&gt; w.sectionId == &quot;main&quot;) map (w =&gt; w.postId)' var='featuredPostIds'>
+    <b:with value='data:view.isHomepage ? data:posts filter (post =&gt; post.id not in data:featuredPostIds): data:posts' var='posts'>
+      
+      <!-- LOGIKA KONDISIONAL DIMULAI DI SINI -->
+      <b:if cond='data:view.search.label == &quot;Tema&quot;'>
+        <!-- Jika Homepage atau Label "NamaLabelAnda", gunakan Grid -->
+        <div class='post-grid-container'>
+          <b:loop index='i' values='data:posts' var='post'>
+            <b:include data='post' name='postBodyStore'/>
+          </b:loop>
+        </div>
+      <b:else/>
+        <!-- Jika halaman lain (Search/Archive/dll), gunakan tampilan default/list -->
+        <b:loop index='i' values='data:posts' var='post'>
+          <b:include data='post' name='postCommentsAndAd'/>
+        </b:loop>
+      </b:if>
+      
+    </b:with>
+  </b:with>
+</b:tag>
+      <b:include cond='data:view.isMultipleItems' name='postPagination'/>
+</b:includable>
