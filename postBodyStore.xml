@@ -10,7 +10,7 @@
 
     <!-- 2. Tombol Wishlist -->
     <button class='btn-wishlist' expr:onclick='&quot;addToCart(&quot; + data:post.id + &quot;)&quot;'>
-      <svg viewBox='0 0 24 24' width='20' height='20' fill='currentColor'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>
+      <svg fill='currentColor' height='20' viewBox='0 0 24 24' width='20'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>
     </button>
 
     <!-- 3. Gambar dengan No-Image Placeholder -->
@@ -18,7 +18,7 @@
       <b:if cond='data:post.featuredImage'>
         <img expr:alt='data:post.title' expr:src='data:post.featuredImage.isResizable ? resizeImage(data:post.featuredImage, 600, &quot;16:9&quot;) : data:post.thumbnail' loading='lazy'/>
       <b:else/>
-        <img alt='No Image' src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg' loading='lazy'/>
+        <img alt='No Image' loading='lazy' src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'/>
       </b:if>
     </a>
 
@@ -35,12 +35,12 @@
              </b:if>
            </b:loop>
            <div class='status-tag'>
-             <b:if cond='data:post.labels any (l => l.name == &quot;Premium&quot;)'>PREMIUM<b:else/>Gratis</b:if>
+             <b:if cond='data:post.labels any (l =&gt; l.name == &quot;Premium&quot;)'>PREMIUM<b:else/>Gratis</b:if>
            </div>
         </div>
         
         <b:loop values='data:post.enclosures' var='enclosure'>
-          <b:if cond='data:enclosure.mimeType == &quot;Demo&quot;'>
+          <b:if cond='data:enclosure.mimeType == &quot;Demo/html&quot;'>
             <a class='btn-demo' expr:href='data:enclosure.url' rel='nofollow'>Demo</a>
           </b:if>
         </b:loop>
