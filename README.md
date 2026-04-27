@@ -1,5 +1,3 @@
-***
-
 # Blogger Post Grid with Auto-Labels & Enclosure
 
 Sistem tampilan *grid* modern untuk Blogger yang dirancang khusus untuk situs portal tema, download file, atau katalog produk. Menggunakan sistem **Vanilla CSS Grid** untuk tata letak yang responsif dan logika **Blogger Data Tags** untuk menangani label secara dinamis tanpa memerlukan JavaScript sama sekali.
