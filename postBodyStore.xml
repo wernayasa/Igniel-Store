@@ -1,4 +1,4 @@
-<b:includable id='postBodySnippet' var='post'>
+<b:includable id='postBodyStore' var='post'>
   <article class='card-item'>
     
     <!-- 1. Badge Label (Version) -->
