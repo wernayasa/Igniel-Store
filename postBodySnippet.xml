@@ -1,0 +1,45 @@
+<b:includable id='postBodySnippet' var='post'>
+  <article class='card-item'>
+    <!-- Badge Versi -->
+    <b:loop values='data:post.labels' var='item'>
+      <b:if cond='data:item.name contains &quot;Version&quot;'>
+        <div class='card-badge'><data:item.name/></div>
+      </b:if>
+    </b:loop>
+
+    <!-- Gambar -->
+    <a class='card-img' expr:href='data:post.url'>
+      <b:if cond='data:post.featuredImage'>
+        <img expr:alt='data:post.title' expr:src='data:post.featuredImage.isResizable ? resizeImage(data:post.featuredImage, 600, &quot;16:9&quot;) : data:post.thumbnail'/>
+      <b:else/>
+        <img alt='No Image' src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'/>
+      </b:if>
+    </a>
+
+    <div class='card-body'>
+      <h3 class='card-title'><a expr:href='data:post.url'><data:post.title/></a></h3>
+      
+      <div class='price-section'>
+        <b:loop values='data:post.labels' var='item'>
+          <b:if cond='data:item.name contains &quot;Rp&quot;'>
+            <span class='price-tag'><data:item.name/></span>
+          </b:if>
+        </b:loop>
+        
+        <div class='status-tag'>
+          <b:if cond='data:post.labels any (l => l.name == &quot;Premium&quot;)'>
+            <span class='is-premium'>PREMIUM</span>
+          <b:else/>
+            <span class='is-free'>Gratis</span>
+          </b:if>
+        </div>
+      </div>
+
+      <b:loop values='data:post.enclosures' var='enclosure'>
+        <b:if cond='data:enclosure.mimeType == &quot;Demo&quot;'>
+          <a class='btn-demo' expr:href='data:enclosure.url'>Demo</a>
+        </b:if>
+      </b:loop>
+    </div>
+  </article>
+</b:includable>
