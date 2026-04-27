@@ -1,5 +1,0 @@
-<div class='post-grid-container'>
-  <b:loop values='data:posts' var='post'>
-    <b:include data='post' name='postBodySnippet'/>
-  </b:loop>
-</div>
