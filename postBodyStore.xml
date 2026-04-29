@@ -1,44 +1,115 @@
 <b:includable id='postBodyStore' var='post'>
-  <article class='card-item'>
-    
-    <!-- 1. Badge Label (Version) -->
+  <article class='post-card group'>
+
     <b:loop values='data:post.labels' var='item'>
       <b:if cond='data:item.name contains &quot;Version&quot;'>
-        <div class='card-badge'><data:item.name/></div>
+        <div class='badge-version'>
+          <data:item.name/>
+        </div>
       </b:if>
     </b:loop>
-
-    <!-- 2. Tombol Wishlist -->
-    <button class='btn-wishlist' expr:onclick='&quot;addToCart(&quot; + data:post.id + &quot;)&quot;'>
-      <svg fill='currentColor' height='20' viewBox='0 0 24 24' width='20'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>
+    
+    <button class='btn-wishlist' expr:onclick='&quot;addToCart(&quot; + data:post.id + &quot;)&quot;' type='button'>
+      <svg fill='currentColor' height='16' viewBox='0 0 24 24' width='16'><path d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/></svg>
     </button>
 
-    <!-- 3. Gambar dengan No-Image Placeholder -->
-    <a class='card-img' expr:href='data:post.url'>
-      <b:if cond='data:post.featuredImage'>
-        <img expr:alt='data:post.title' expr:src='data:post.featuredImage.isResizable ? resizeImage(data:post.featuredImage, 600, &quot;16:9&quot;) : data:post.thumbnail' loading='lazy'/>
-      <b:else/>
-        <img alt='No Image' loading='lazy' src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'/>
-      </b:if>
+    <a class='post-thumbnail' expr:href='data:post.url'>
+      <b:include data='{ image: data:post.featuredImage, imageSizes: [320, 640], imageClass: &quot;img-responsive&quot; }' name='responsiveImage'/>
     </a>
 
-    <!-- 4. Body Konten -->
-    <div class='card-body'>
-      <h3 class='card-title'><a expr:href='data:post.url'><data:post.title/></a></h3>
+    <div class='post-content'>
       
-      <!-- Flex Container Harga & Demo -->
-      <div class='price-demo-wrapper'>
-        <div class='price-info'>
-           <b:loop values='data:post.labels' var='item'>
-             <b:if cond='data:item.name contains &quot;Rp&quot;'>
-               <div class='price-tag'><data:item.name/></div>
-             </b:if>
-           </b:loop>
-           <div class='status-tag'>
-             <b:if cond='data:post.labels any (l =&gt; l.name == &quot;Premium&quot;)'>PREMIUM<b:else/>Gratis</b:if>
-           </div>
+      <div class='post-labels'>
+        <b:loop values='data:post.labels' var='label'>
+          <b:if cond='data:label.name == &quot;Tailwind CSS&quot;'>
+            <span class='label-tag bg-tailwind'>
+              <svg class='icon-label' fill='currentColor' viewBox='0 0 24 24'><path d='M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8 1.313.328 2.251 1.286 3.29 2.348C15.216 11.838 17.026 13.6 20.8 13.6c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-1.313-.328-2.251-1.286-3.29-2.348C17.586 6.563 15.776 4.8 12.001 4.8zm-6 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8 1.313.328 2.251 1.286 3.29 2.348C10.216 16.638 12.026 18.4 15.8 18.4c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-1.313-.328-2.251-1.286-3.29-2.348C12.786 11.363 10.976 9.6 7.201 9.6z'/></svg>
+              Tailwind CSS
+            </span>
+          </b:if>
+          <b:if cond='data:label.name == &quot;HTML&quot;'>
+            <span class='label-tag bg-html'>
+              <span class='font-black'>5</span> HTML
+            </span>
+          </b:if>
+          <b:if cond='data:label.name == &quot;CSS&quot;'>
+            <span class='label-tag bg-css'>CSS</span>
+          </b:if>
+          <b:if cond='data:label.name == &quot;Javascript&quot;'>
+            <span class='label-tag bg-js'>
+              <span class='badge-js'>JS</span> JavaScript
+            </span>
+          </b:if>
+          <b:if cond='data:label.name == &quot;XML&quot;'>
+            <span class='label-tag bg-xml'>XML</span>
+          </b:if>
+          <b:if cond='data:label.name == &quot;Blogger&quot;'>
+            <span class='label-tag bg-blogger'>
+              <svg class='icon-label' fill='currentColor' viewBox='0 0 24 24'><path d='M19 14.5a3.5 3.5 0 0 1-3.5 3.5H9a3.5 3.5 0 0 1-3.5-3.5V9.5A3.5 3.5 0 0 1 9 6h6.5A3.5 3.5 0 0 1 19 9.5v5m-3 0a1.5 1.5 0 0 0-1.5-1.5H9a1.5 1.5 0 0 0-1.5 1.5V13A1.5 1.5 0 0 0 9 14.5h5.5A1.5 1.5 0 0 0 16 13v-.5m0-4.5A1.5 1.5 0 0 0 14.5 7H9a1.5 1.5 0 0 0 7.5 8.5V10A1.5 1.5 0 0 0 9 11.5h5.5A1.5 1.5 0 0 0 16 10V8.5z'/></svg>
+              Blogger
+            </span>
+          </b:if>
+          <b:if cond='data:label.name == &quot;PHP&quot;'>
+            <span class='label-tag bg-php'>PHP</span>
+          </b:if>
+          <b:if cond='data:label.name == &quot;Wordpress&quot;'>
+            <span class='label-tag bg-wordpress'>
+              <svg class='icon-label' fill='currentColor' viewBox='0 0 24 24'><path d='M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.176 2.986-.505l-2.828-7.7zM8.66 12.04l-2.31-6.14a9.752 9.752 0 0 0-1.34 5.093c0 2.148.69 4.135 1.856 5.75l1.794-4.703zm11.233-.502a9.782 9.782 0 0 0 .107-1.445c0-1.76-.328-3.033-.61-3.69-.328-.737-.635-1.127-.635-1.127-.512-.635-1.106-.553-1.106-.553.717.02 1.25.635 1.25.635.328.533.47 1.25.47 2.11 0 1.272-.246 2.766-.513 4.282l-.93 2.873 2.167-8.084zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.114 21.03c-.038.001-.076.003-.114.003a8.96 8.96 0 0 1-5.748-2.083l3.056-8.528 2.062 5.564 1.13-3.155.614 1.705 1.455 3.966a8.96 8.96 0 0 1-2.455 1.528z'/></svg>
+              WordPress
+            </span>
+          </b:if>
+          <b:if cond='data:label.name == &quot;Laravel&quot;'>
+            <span class='label-tag bg-laravel'>
+              <svg class='icon-label' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path d='M7 3.5v17L21 12 7 3.5z' stroke-linecap='round' stroke-linejoin='round'/></svg>
+              Laravel
+            </span>
+          </b:if>
+          <b:if cond='data:label.name == &quot;MySQL&quot;'>
+            <span class='label-tag bg-mysql'>
+              <svg class='icon-label' fill='currentColor' viewBox='0 0 24 24'><path d='M12 2C6.48 2 2 3.34 2 5v14c0 1.66 4.48 3 10 3s10-1.34 10-3V5c0-1.66-4.48-3-10-3zm-8 3c0-.66 3.58-1 8-1s8 .34 8 1-3.58 1-8 1-8-.34-8-1zm16 14c0 .66-3.58 1-8 1s-8-.34-8-1v-2.52c1.94.89 4.82 1.52 8 1.52s6.06-.63 8-1.52V19zm0-5c0 .66-3.58 1-8 1s-8-.34-8-1v-2.52c1.94.89 4.82 1.52 8 1.52s6.06-.63 8-1.52V14z'/></svg>
+              MySQL
+            </span>
+          </b:if>
+        </b:loop>
+      </div>
+
+      <h3 class='post-title'>
+        <a expr:href='data:post.url'>
+          <data:post.title/>
+        </a>
+      </h3>
+
+      <div class='post-footer'>
+        <div class='price-wrapper'>
+          <b:loop values='data:post.labels' var='item'>
+            <b:if cond='data:item.name contains &quot;Rp&quot; and data:item.name contains &quot;Promo&quot;'>
+              <div class='price-promo'>
+                <data:item.name/>
+              </div>
+            </b:if>
+          </b:loop>
+
+          <b:loop values='data:post.labels' var='item'>
+            <b:if cond='data:item.name contains &quot;Rp&quot; and (data:item.name contains &quot;Promo&quot; == false)'>
+              <b:with value='data:post.labels any (l =&gt; l.name contains &quot;Promo&quot;)' var='isDiscounted'>
+                <b:if cond='data:isDiscounted'>
+                  <div class='price-old'><data:item.name/></div>
+                <b:else/>
+                  <div class='price-normal'><data:item.name/></div>
+                </b:if>
+              </b:with>
+            </b:if>
+          </b:loop>
+
+          <div class='license-wrapper'>
+            <b:if cond='data:post.labels any (l =&gt; l.name == &quot;Premium&quot;)'>
+              <div class='badge-premium'>PREMIUM</div>
+            <b:else/>
+              <div class='badge-free'>GRATIS</div>
+            </b:if>
+          </div>
         </div>
-        
+
         <b:loop values='data:post.enclosures' var='enclosure'>
           <b:if cond='data:enclosure.mimeType == &quot;Demo/html&quot;'>
             <a class='btn-demo' expr:href='data:enclosure.url' rel='nofollow'>Demo</a>
